@@ -1,3 +1,2 @@
-python
-django
-pillow
+django4.0
+pillow9.4
