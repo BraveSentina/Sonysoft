@@ -1,0 +1,38 @@
+{% extends 'sonysoft_base.html' %}
+{% load static %}
+{% block title %}homepage{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+{% block home_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h1 class="company-name">Sonysoft</h1>
+
+    <p class="text">
+        <b>Hi, welcome!</b><br>
+        Are you looking for a software that can help in saving your time?
+        Do you want to conduct tests online securely and conveniently and securely.
+        If that is the case, then you have come to the right place. <br>
+        Vision provides a convenient environment to conduct tests online.
+    </p>
+    <div class="images-container">
+        <div class="image-container">
+            <img src="{% static 'images/home1.jpeg' %}" alt="Image not found" class="images">
+        </div>
+        <div class="image-container">
+            <img src="{% static 'images/home2.jpeg' %}" alt="Image not found" class="images">
+        </div>
+        <div class="image-container">
+            <img src="{% static 'images/home3.jpeg' %}" alt="Image not found" class="images">
+        </div>
+        
+    </div>
+    <p class="text">
+        Taking test offline seems time consuming and does not seem to provide much satisfactory results. 
+        Our advanced system provides secure and convenient way for candidates to take their assessment. 
+        Cheat detection is additionally provided by us, where screenshot of the screen will be sent to you if in case any candidate tries to cheat.
+        By this, you will also have access to solid evidence about cheating found if any.
+    </p>
+</div>    
+{% endblock %}

@@ -1,0 +1,43 @@
+.content{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+table{
+    min-width: 200px;
+    max-width: 500px;
+    /* background: red; */
+}
+
+.sub-topic{
+    text-align: center;
+}
+
+.proceed-link{
+    background:rgb(0, 176, 240);
+    border-radius: 2px;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    transition: .3s;
+    width: 250px;
+    text-decoration: none;
+    text-align: center;
+    align-self: center;
+    display: none;
+}
+
+.proceed-link:hover{
+    background:rgb(4, 160, 217);
+    box-shadow: 0 0 0 3px rgb(134, 215, 244);
+    color: white;
+}
+
+.loading-font{
+    /* background: red; */
+    text-align: center;
+    color: rgb(27, 84, 149);
+    display: block;
+}

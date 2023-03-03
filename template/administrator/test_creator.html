@@ -1,0 +1,97 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}test creator{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/test_creator.css' %}">
+    <script src="{% static 'js/administrator/test_creator.js' %}"></script>
+
+{% endblock %}
+{% block dashboard_active %}active{% endblock %}
+{% block block_content %}
+    <div class="content">
+        <h1 class="main-topic">Test creator</h1>
+        <p class="note">Success is the key to life</p>
+        
+        <form class="card box" method="POST">
+            {% csrf_token %}
+            <table class="table">
+                <tr>
+                    <td class="label">Test name</td>
+                    <td>
+                        <input class="form-control" type="text" name="test_name" id="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Duration</td>
+                    <td>
+                        <input class="form-control" onkeypress="validateInteger(event)" type="number" min="0" max="999" name="test_duration" id="test_duration" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Pass percentage</td>
+                    <td>
+                        <input class="form-control" onkeypress="validatePercentage(event)" onkeypress="" type="number" min="0" max="100" name="pass_percentage" id="pass_percentage" required>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="create" class="create-btn">
+        </form>
+        
+        {% if register_allowed_test %}
+        <div class="register-allowed">
+            <div class="card test-container">
+                <i class="fas fa-file file-icon"></i>
+                <h6>{{ register_allowed_test.test_name }}</h6>
+                <span>created on: {{ register_allowed_test.created_on }}</span>
+                <span class="optional-features">
+                    {% if register_allowed_test.is_ongoing %}
+                        <h6 style="color:green;">on going</h6>
+                    {% else %}
+
+
+                        <a href="{% url 'administrator:delete_test' register_allowed_test.id %}" class="delete-link" title="delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <a href="{% url 'administrator:test_editor_page' register_allowed_test.id 'default' %}" class="edit-link" title="edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <!-- <a href="#">
+                            set
+                            <i class="fas fa-tick"></i>
+                        </a> -->
+                    {% endif %}
+                </span>  
+            </div>
+        </div>
+        {% endif %}
+
+
+        <div class="tests-container">
+            {% for test in tests %}
+            <div class="card test-container">
+                <i class="fas fa-file file-icon"></i>
+                <h6>{{ test.test_name }}</h6>
+                <span>created on: {{ test.created_on }}</span>
+                <span class="optional-features">
+                    {% if test.is_ongoing %}
+                        <h6 style="color:green;">on going</h6>
+                    {% else %}
+                        <a href="{% url 'administrator:delete_test' test.id %}" class="delete-link" title="delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        <a href="{% url 'administrator:test_editor_page' test.id 'default' %}" class="edit-link" title="edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        {% if not is_any_test_ongoing %}
+                            <a href="{% url 'administrator:allow_registeration' test.id %}">
+                                set
+                                <i class="fas fa-tick"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </span>  
+            </div>            
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

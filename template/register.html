@@ -1,0 +1,88 @@
+{% extends 'sonysoft_base.html' %}
+{% load static %}
+{% block title %}register{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/register_page.css' %}">
+{% endblock %}
+{% block register_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h2 class="main-topic">Sign up</h2>
+    {% if test %}
+        {% if messages %}
+            <h5 class="message" >User already exists</h5>
+            <p class="message">
+                If you already have an account with us, and want to register for this test kindly put a mail to us at admin@gmail.com <br>
+                We will validate your request and give access to test once verified.<br>
+                Kindly send your username and email associated with your old account...
+                Thank you!
+            </p>
+        {% endif %}
+    <form class="card form" method="POST" id="form">
+        {% csrf_token %}
+        <h6 style="color:grey;">Test:{{ test.test_name }}</h6>
+        <div class="username">
+            <label>Username</label>
+            <input type="text" name="username" id="username" class="form-control" maxlength="15" required>
+        </div>
+        
+        <div class="fname">
+            <label>First name</label>
+            <input type="text" name="fname" id="fname" class="form-control" required onchange="validateFirstname(event);" onkeyup="validateFirstname(event);" onkeydown="validateFirstname(event);">
+        </div>
+
+        <div class="lname">
+            <label>Last name</label>
+            <input type="text" name="lname" id="lname" class="form-control" required onchange="validateLastname(event);" onkeyup="validateLastname(event);" onkeydown="validateLastname(event);">
+        </div>
+
+        <div class="email">
+            <label>Email</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+
+        </div>
+        
+        <div class="password1">
+            <label>Password</label>
+            <input type="password" name="password" id="password1" class="form-control" required>
+        
+            <ol class="validate-lists">
+                <li class="error">
+                    Must contain atleast one uppercase
+                </li>
+                <li class="error">
+                    Must contain atleast one lowercase
+                </li>
+                <li class="error">
+                    Must contain atleast one special symbol
+                </li>
+                <li class="error">
+                    Must contain atleast one number symbol
+                </li>
+                
+                <li class="error">
+                    Must contain more than 6 characters
+                </li>
+            </ol>
+        </div>
+        
+        <div class="password2">
+            <label>Confirm password</label>
+            <input type="password" name="password" id="password2" class="form-control" required>
+        </div>
+        
+        <div class="note">
+            <input type="checkbox" name="checkbox" id="checkbox" required>
+            I accept the terms and conditions of this application.
+        </div>
+        
+        <input type="submit" value="sign up" class="signup-btn" id="signup-btn">
+    </form>
+
+
+    <script src="{% static 'js/register.js' %}"></script>
+    {% else %}
+        <h4 style="text-align: center;">Currently no tests, try again after sometime</h4>
+    {% endif %}
+</div>
+{% endblock %}

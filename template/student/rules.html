@@ -1,0 +1,30 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/student/rules.css' %}">
+{% endblock %}
+{% block block_content %}
+
+<div class="content">
+    <div class="card small-card">
+        <h4 class="main-topic">Rules and regulations</h4>
+        <h5 class="sub-topic">Read these carefully before attempting the test</h5>
+
+        <ol>
+            <li>Be in an environment suitable for your convenience</li>
+            <li>Do not speak to anybody while taking the test else you will be disqualified</li>
+            <li>Do not plugin ear phone</li>
+            <li>Sit in an environment where light is sufficient so that your camera could detect your face</li>
+        </ol>
+    </div>
+    <br>
+    <h6 class="sub-topic">
+        By taking the assessment you are consenting to the rules and regulations of the test
+    </h6>   
+    <div class="assessment-link-container">
+        <a href="{% url 'student:assessment_page' %}" class="assessment-link">Take assessment</a>
+    </div>
+    <script src="{% static 'js/student/rules.js' %}"></script>
+</div>
+
+{% endblock %}

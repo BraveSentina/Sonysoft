@@ -1,0 +1,43 @@
+{% extends 'sonysoft_base.html' %}
+{% block title %}register success{% endblock %}
+{% block custom_css %}
+<style>
+    .content{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-topic{
+        color: rgb(0, 166, 255);
+        position: relative;
+        top: 200px;
+    }
+    .login-page-link{
+        position: relative;
+        top: 200px;
+        background: rgb(0, 166, 255);
+        color: white;
+        border-radius: 3px;
+        text-decoration: none;
+        padding: 5px;
+        transition: .3s;
+    }
+
+    .login-page-link:hover{
+        background: rgb(5, 149, 227);
+        color: white;
+        box-shadow: 0 0 3px 3px rgb(122, 219, 255);
+
+    }
+
+</style>
+{% endblock %}
+{% block register_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h3 class="main-topic">Thank you for registering in sonysoft!</h3>
+    <a class="login-page-link" href="{% url 'login_page' %}">Click here to visit login page</a>
+
+</div>
+{% endblock %}

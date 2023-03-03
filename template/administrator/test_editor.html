@@ -1,0 +1,95 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}test editor{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/test_editor.css' %}?{% now 'U' %}">
+{% endblock %}
+{% block dashboard_active %}active{% endblock %}
+{% block block_content %}
+    <div class="content">
+        <h1 class="main-topic">Test editor</h1>
+        
+        <form class="card question-container" method="POST" enctype="multipart/form-data">                
+        {% csrf_token %}
+        {% if is_new_question %}
+            <textarea class="question" name="question" id="" cols="30" rows="10" required></textarea>
+            Marks: <input type="text" name="marks" id="marks" class="form-control" maxlength="4" pattern="\d*" value="1" required>
+            <div class="image-container">
+                <input type="file" name="question_image" id="" class="choose-file" accept="image/*">
+                <!-- <a href="">
+                    <i class="fas fa-trash bin"></i>
+                </a> -->
+                
+            </div>
+            <div class="options-container">
+                <div class="option-container">
+                    <input class="option" type="radio" name="option" onchange="updateCorrectAnswerInput(event)" required>
+                    <input class="option-text" type="text" name="option_text" id="" placeholder="Enter your option" oninput="updateCorrectAnswerInput(event)">
+                    <button class="bin-container option-delete" onclick="binClickHandler(event)" type="button">
+                        <i class="fas fa-trash bin"></i>
+                    </button>
+                </div>  
+                <input type="hidden" name="correct_option" value="" id="correct_option">    
+            </div>
+            <button id="add-option-btn" class="btn" type="button">add option</button>
+
+        {% else %}
+            {% if not is_any_test_ongoing %}
+                {% if question.test_id.is_register_allowed %}
+                    <a href="{% url 'administrator:set_is_ongoing_to_true' question.test_id.id %}" class="begin-test-link">Begin test</a>
+                {% endif %}
+            {% endif %}
+            <input type="hidden" name="question_id" value="{{ question.id }}">
+            <textarea class="question" name="question" id="" cols="30" rows="10" required>{{question}}</textarea>
+            Marks: <input type="text" name="marks" id="marks" class="form-control" maxlength="4" pattern="\d*" value="{{ question.marks }}" required>
+            <div class="image-container">
+                <input type="file" name="question_image" id="" class="choose-file" accept="image/*">
+                <a href="{% url 'administrator:delete_all_question_images' question.test_id.id  question.id %}">
+                    <i class="fas fa-trash bin"></i>
+                </a>
+            </div>
+            {% if question_images %}
+            <div class="existing-images">
+                {% for question_image in question_images %}
+                    <img src="{{ question_image.image.url }}" alt="Image not found">
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="options-container">
+                {% for o in options %}
+                <div class="option-container">
+                    {% if o.is_correct %}
+                        <input type="hidden" name="correct_option" value="{{ forloop.counter0 }}" id="correct_option">    
+                        <input class="option" type="radio" name="option" onchange="updateCorrectAnswerInput(event)" required checked>
+                    {% else %}
+                        <input class="option" type="radio" name="option" onchange="updateCorrectAnswerInput(event)" required>
+                    {% endif %}
+                    <input class="option-text" type="text" name="option_text" id="" placeholder="Enter your option" onchange="updateCorrectAnswerInput(event)" value="{{ o.option }}">
+                    <a href="{% url 'administrator:delete_option' question.test_id.id question.id o.id %}" class="bin-container" onclick="binClickHandler()">
+                        <i class="fas fa-trash bin"></i>
+                    </a>
+                </div>  
+                {% endfor %}
+            </div>
+            {% endif %}        
+            <!-- <button id="add-option-btn" class="btn" type="button">add option</button> -->
+            <input type="submit" value="save" class="button save-btn">
+        </form>
+        
+        <div class="add-question-link-container">
+            <a class="button add-question-link" href="{% url 'administrator:test_editor_page' test_id 'default' %}">Add new question</a>
+            {% if is_new_question == False %}
+                <a class="button delete-question-link" href="{% url 'administrator:delete_question' question.id %}">Delete question</a>
+            {% endif %}
+        </div>
+
+        <div class="questions-navigator">        
+            {% for q in questions %}
+                <a href="{% url 'administrator:test_editor_page' q.test_id.id q.id %}" class="question-nav-item">{{ forloop.counter }}</a>
+            {% endfor %}
+        </div>
+        <script src="{% static 'js/administrator/test_editor.js' %}"></script>
+    
+    </div>
+
+{% endblock %}

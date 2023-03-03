@@ -1,0 +1,54 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}dashboard{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/dashboard.css' %}">
+{% endblock %}
+{% block dashboard_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h1 class="main-topic">Dashboard</h1>
+
+    <!-- <p class="block">
+        No on going test!!
+        Create a test now using Apparel
+    </p> -->
+
+    <div class="main">
+        <div class="contain">
+            <div class="block">
+                {% if test_permissions %}
+                    Total candidates {{ test_permissions.count }} <br>
+                {% endif %}
+                    <br>
+                {% if is_any_test_ongoing %}
+                    Test is ongoing
+                {% else %}
+                    No test is currently going on!!
+                    Go to test creator to create your test.
+                {% endif %}
+            </div>
+        
+            <div class="options">
+                <a class="options-items" href="{% url 'administrator:test_creator_page' %}">Test creator</a>
+                <a class="options-items" href="{% url 'administrator:view_all_tests_page' %}">View test</a>
+                <a class="options-items" href="{% url 'administrator:monitor_page' %}">Monitor</a>
+                <a class="options-items" href="{% url 'administrator:test_permission_page' %}">Test permissions</a>
+            </div>
+        </div>
+
+        <div class="date-container">
+            <span class="date">{{ date_and_time }}</span>
+        </div>
+    </div>
+    <div class="images-container">
+        <img style="width:700px;height:400px;" src="{% static 'images/dash1.jpg' %}" alt="">
+        <!-- <img style="width: 300px;height: 400px;" src="{% static 'images/dash2.jpg' %}" alt=""> -->
+        <img style="width:700px;height: 400px;" src="{% static 'images/dash3.jpg' %}" alt="">
+        
+    </div>
+    
+
+</div>
+
+{% endblock %}

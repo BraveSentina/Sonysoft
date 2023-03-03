@@ -1,0 +1,321 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}assessment{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/student/assessment.css' %}">
+{% endblock %}
+{% block block_content %}
+
+    <div class="content">
+        <div class="overlay">
+            <button class="full-screen-btn">grant permission to enter full screen</button>
+        </div>
+        <div class="video-container">
+            <video id="video" autoplay></video>
+            <canvas id="canvas" width="200" height="100"></canvas>
+            <h5 id="inform-msg">Good candidate</h5>
+        </div>
+        <span class="duration">Duration:<span class="time-left">00:00:00</span></span> 
+        
+        <div class="toggle-questions-container">
+            {% for question in questions %}
+                <a href="#{{ question.id }}">{{ forloop.counter }}</a>
+            {% endfor %}            
+        </div>
+
+        <form class="questions-container" method="POST">
+            {% csrf_token %}
+            {% for question in questions %}
+            <div class="question-container" id="{{ question.id }}">
+                <b>Question {{ forloop.counter }} </b>
+                <div class="card">
+                    <p>
+                        {{ question.question }}
+                    </p>
+                    {% if question_images %}
+                    <div class="images-container">
+                        {% for q_img in question_images %}
+                            {% if q_img.question_id.id == question.id %}
+                                <img src="{{ q_img.image.url }}" alt="Image not found">
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="options-container">
+                        {% for option in options %}
+                            {% if option.question_id == question %}
+                                <div class="option-container">
+                                    {% if option in student_marking_options %}
+                                        <input type="radio" name="{{ question.id }}" id="" value="{{ option.id }}" class="option-class" checked>
+                                    {% else %}
+                                        <input type="radio" name="{{ question.id }}" id="" value="{{ option.id }}" class="option-class">
+                                    {% endif %}
+                                    <input type="hidden" name="option" value="{{ option.option }}">
+                                    <label>{{ option.option }}</label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}    
+            <input type="submit" value="submit" class="submit-btn">
+
+        </form>
+        <script src="{% static 'tensorflow/tensorflow.js' %}"></script>
+        <script src="{% static 'tensorflow/tf.min.js.map' %}"></script>
+        <script src="{% static 'tensorflow/blazeface.js' %}"></script>
+        <script src="{% static 'js/student/assessment.js' %}"></script>
+        <script>
+            let tab_change_count = 0
+            let cheat_count = 0
+            let is_user_blocked = false;
+            let is_face_visible = true;
+            let bad_face_total_count = 0;
+
+            // If user loses focus then, alert
+            let blur_timer;
+            let isHavingFocus = true;
+
+
+            document.addEventListener('contextmenu',function(event){
+                alert("Right click is disabled");
+                event.preventDefault();
+            });
+
+            function isPermissionsEnabled(){
+                let is_given_permission = true;
+                if(navigator.mediaDevices.getUserMedia){
+                    navigator.mediaDevices.getUserMedia({video:true})
+                    .catch(function(err){
+                        is_given_permission = false;
+                    })
+                }
+                return is_given_permission;
+            }
+
+            function banUser(ban_detail) {
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'student:ban_user' %}",
+                    data: {
+                        ban_detail:ban_detail,
+                    },
+                    success: function (response) {
+                        console.log("Banned user succeessfully");
+                        is_user_blocked = True;
+                    }
+                });
+            }
+
+            window.addEventListener('blur',function(e){
+                isHavingFocus = false;
+                blur_timer = 2000;
+                setTimeout(() => {
+                    if(isHavingFocus == false){
+                        alert("Dont switch tabs, you are being monitored")
+                    }
+                }, blur_timer);
+            });
+
+            window.addEventListener('focus',function(e){
+                // clearTimeout(blur_timer);
+                isHavingFocus = true;
+            });
+
+            // Save into database each time any change in input
+            let option_class = $('.option-class');
+            for(let i=0;i<option_class.length;i++){
+                $(option_class[i]).change(function (e) { 
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{% url 'student:save_option' %}",
+                        data: {
+                            option_id:this.value,
+                        },
+                        success: function (response) {
+                            console.log("Sent success")
+                        }
+                    });
+
+                });
+            }
+
+            // Track duration and update the same and auto submit when time exceeds
+            let duration = Number("{{ test.test_duration }}");
+            let time_left = $('.time-left')[0];
+            let time_str = ''
+            let m = 0
+            let s = 0
+
+            let interval = 3000;
+            setInterval(() => {
+                // Check if full screen is enabled
+                if((window.fullScreen) ||
+                window.innerWidth == screen.width && window.innerHeight == screen.height){
+                    console.log("Good");
+                    $('.overlay')[0].style.display = 'none';
+
+                }
+                else{
+                    console.log("Bad");
+                    $('.overlay')[0].style.display = 'inline';
+                }
+
+                if(tab_change_count > 3){
+                    banUser("Banned due to frequent tab changes");
+                    alert("You are banned");
+                }
+
+                // If isHavingFocus is set to false, increment tab_change_count
+                if(isHavingFocus == false){
+                    tab_change_count++;
+                }
+
+                if(isPermissionsEnabled() == false){
+                    window.close();
+                }
+
+                // Ajax call to block user if banned
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'student:is_user_banned' %}",
+                    // data: "data",
+                    // dataType: "dataType",
+                    success: function (response) {
+                        let is_banned = response.data;
+                        console.log("Response is "+is_banned);
+                        if(is_banned == "True"){
+                            location.reload();
+                        }
+                    }
+                });
+
+
+                // Ajax call to server
+                $.ajax({
+                    type: "GET",
+                    url: "{% url 'student:get_remaining_duration' %}",
+                    data: "data",
+                    success: function (response) {
+
+                        // if(response.data == 'None'){
+                        //     location.reload();
+                        // }
+                    
+                        let time_in_seconds = response.data
+                        console.log('remaining time: '+time_in_seconds);
+                        
+                        m = Math.ceil((time_in_seconds)/60);
+                        time_str = m+'m more';
+                        time_left.textContent = time_str;
+                    
+                        if(time_in_seconds <= 0 || time_in_seconds == 'None'){
+                            // Code to enable auto submission
+                            $.ajax({
+                                type: "GET",
+                                url: "{% url 'student:enable_submit' %}",
+                                success: function (response) {
+                                    location.reload();
+                                }
+                            });              
+                        }
+                    }
+                });
+
+                if(bad_face_total_count < 3){
+                    if(is_face_visible == false){
+                        bad_face_total_count++;
+                    }
+                }
+                else{
+                    banUser("Bad face detection exceeded limits");
+                }
+
+
+            }, interval);
+
+            // Code for face detection
+
+            function startFaceRecognition(){
+                let video = document.getElementById('video');
+                let inform_msg = document.getElementById('inform-msg');
+                let model;
+                let canvas = document.getElementById('canvas');
+                let ctx = canvas.getContext('2d');
+                const setupCamera = () => {
+                    if(navigator.mediaDevices.getUserMedia){
+                        // Enabled 
+                    
+                        navigator.mediaDevices
+                        .getUserMedia({
+                            video:{width: 200,height: 100},
+                            audio:false,
+                        })
+                        .then((stream) => {
+                            video.srcObject = stream;
+                        })
+                        .catch(function(err){
+                            alert("Grant permission to enable camera to continue");
+                            full_screen_btn = $('.full-screen-btn')[0].style.display = 'none';
+                            return;
+                        })
+                        full_screen_btn = $('.full-screen-btn')[0].style.display = 'inline';
+                    }
+                    else{
+                        alert("Device not compatible ");
+                        window.close();
+                        return;
+                    }
+
+                    
+                };
+
+                const detectFaces = async () => {
+                    const prediction = await model.estimateFaces(video, false);
+                    
+                    ctx.drawImage(video, 0, 0, 200,100);
+
+                    prediction.forEach((pred) => {
+                        ctx.beginPath();
+                        ctx.lineWidth = "4";
+                        ctx.strokeStyle = "blue";
+                        ctx.rect(
+                            pred.topLeft[0],
+                            pred.topLeft[1],
+                            pred.bottomRight[0]  - pred.topLeft[0],
+                            pred.bottomRight[1] - pred.topLeft[1],
+                        );
+                        ctx.stroke();
+                    });
+                    if(prediction.length == 0){
+                        console.log("No face detected");
+                        inform_msg.parentNode.style.background = "red";
+                        inform_msg.textContent = "No face detected";
+                        is_face_visible = false;
+                    }
+                    else if(prediction.length == 1){
+                        inform_msg.parentNode.style.background = "rgb(40, 189, 40)";
+                        inform_msg.textContent = "Good candidate";
+                        is_face_visible = true;
+                    }
+                    else{
+                        inform_msg.parentNode.style.background = "red";
+                    }
+                };  
+
+                setupCamera();
+                video.addEventListener('loadeddata',async ()=>{
+                    model = await blazeface.load();
+                    setInterval(detectFaces,100);
+                });
+            }
+            
+            startFaceRecognition();
+
+        </script>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}view{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/view_all_tests.css' %}">
+{% endblock %}
+{% block dashboard_active %}active{% endblock %}
+{% block block_content %}
+    <div class="content">
+        <h1 class="main-topic">All tests</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Test name</th>
+                    <th>Duration</th>
+                    <th>Pass percentage</th>
+                    <th>Created on</th>
+                    <th>Started at</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>               
+                {% for test in tests %}
+                <tr>
+                    <td>{{ test.test_name }}</td>
+                    <td>{{ test.test_duration }}</td>
+                    <td>{{ test.pass_percentage }}</td>
+                    <td>{{ test.created_on }}</td>
+                    <td>{{ test.started_at }}</td>
+                    <td>
+                        <a style="margin-right: 5px;" href="{% url 'administrator:results_page' test.id %}" class="btn-link begin-test">view results</a>
+                    {% if test.is_ongoing %}
+                        is ongoing
+                    {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

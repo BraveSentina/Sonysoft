@@ -1,0 +1,9 @@
+.time-left{
+    background: red;
+    color: yellow;
+    transition: .3s;
+}
+
+.time-left:hover{
+    transform: scale(1.1);
+}

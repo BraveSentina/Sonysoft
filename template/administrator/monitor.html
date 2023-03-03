@@ -1,0 +1,39 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}monitoring{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/monitor.css' %}">
+{% endblock %}
+{% block dashboard_active %}active{% endblock %}
+{% block block_content %}
+    <div class="content">
+        <h1 class="main-topic">Monitor</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Created on</th>
+                    <th>user</th>
+                    <th>Ban detail</th>
+                    <th>Ban count</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ban in bans %}
+                {% if ban.user.is_banned %}
+                    <tr>
+                        <td>{{ ban.created_on }}</td>
+                        <td>{{ ban.user }}</td>
+                        <td>{{ ban.ban_detail }}</td>
+                        <td>{{ ban.ban_count }}</td>
+                        <td>
+                            <a class="unban-link" href="{% url 'administrator:remove_ban' ban.user.id %}">Remove Ban</a>
+                        </td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

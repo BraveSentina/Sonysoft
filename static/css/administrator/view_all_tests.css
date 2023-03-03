@@ -1,0 +1,43 @@
+.content{
+    padding: 20px;
+}
+
+.main-topic{
+    text-align: center;
+    background: linear-gradient(to right,rgb(26, 141, 173),rgb(53, 184, 108));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.btn-link{
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    border-radius: 2px;
+    transition: .3s;
+}
+
+.view-test{
+    background: rgb(33, 143, 174);
+    
+}
+
+.view-test:hover{
+    color: white;
+    background: rgb(27, 131, 160);
+    box-shadow: 0 0 0 3px rgb(159, 247, 255);
+}
+
+.begin-test{
+    /* color: rgb(16, 133, 51); */
+    position: relative;
+    left: 10px;
+    background: rgb(33, 174, 78);
+}
+
+.begin-test:hover{
+    color: white;
+    background: rgb(27, 163, 70);
+    box-shadow: 0 0 0 3px rgb(159, 255, 159);
+}
+

@@ -1,0 +1,51 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}logs{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/logs.css' %}">
+{% endblock %}
+{% block logs_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h1 class="main-topic">Logs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sl.no</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>10/10/2000</td>
+                <td>00:00:00</td>
+                <td>Blocked candidate 10001</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>10/10/2000</td>
+                <td>00:00:00</td>
+                <td>Blocked candidate 10001</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>10/10/2000</td>
+                <td>00:00:00</td>
+                <td>Blocked candidate 10001</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>10/10/2000</td>
+                <td>00:00:00</td>
+                <td>Blocked candidate 10001</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Base{% endblock %}</title>
+    
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+    
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/js/all.min.js' %}">
+
+    
+
+    {% block custom_css %}{% endblock %}
+  </head>
+<body>
+    <!-- <h1>Base html</h1> -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-image: linear-gradient(to right,rgb(47, 165, 198),rgb(62, 214, 179));">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'homepage_page' %}">Sonysoft</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link {% block home_active %}{% endblock %}" aria-current="page" href="{% url 'homepage_page' %}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block about_active %}{% endblock %}" href="{% url 'about_page' %}">about</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block terms_active %}{% endblock %}" href="{% url 'terms_page' %}">terms and conditons</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block login_active %}{% endblock %}" href="{% url 'login_page' %}">sign in</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block register_active %}{% endblock %}" href="{% url 'register_page' %}">register</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+   
+    {% block block_content %}
+    {% endblock %}
+</body>
+</html>

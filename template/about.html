@@ -1,0 +1,16 @@
+{% extends 'sonysoft_base.html' %}
+{% load static %}
+{% block title %}about{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/about_page.css' %}">
+{% endblock %}
+{% block about_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h2 class="main-topic">About us</h2>
+    <p class="text">
+        This application was created by <b>Ebenezer L and Andrew marcello</b> of T.John College. <br>
+        It is still undergoing development and we appreciate any valuabe feedbacks to improve the software product.
+    </p>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sub-topic{
+    text-align: center;
+    position: relative;
+    top: 100px;
+    color: rgb(26, 123, 26);
+}

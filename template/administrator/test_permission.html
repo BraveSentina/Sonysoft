@@ -1,0 +1,49 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}test permissions{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/test_permission.css' %}">
+{% endblock %}
+{% block test_permissions_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h1 class="main-topic">Test permission</h1>
+    <form class="card mycard" method="GET">
+        <input class="form-control" type="text" name="username" id="username" placeholder="Enter username">
+        <input class="btn btn-primary search-btn" type="submit" value="search">
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>activity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% if user %}
+                    <td>{{ user.user.username }}</td>
+                    <td>{{ user.user.email }}</td>
+                    <td>
+                        {% if has_permit %}
+                            <a  class="link revoke-link" href="{% url 'administrator:grant_or_revoke_test_permission' user.user.username %}">Revoke</a>
+                        {% else %}
+                            <a  class="link grant-link" href="{% url 'administrator:grant_or_revoke_test_permission' user.user.username %}">Grant</a>
+                        {% endif %}
+                    </td>
+                {% else %}
+                    <h6>No data to display</h6>
+
+                {% endif %}
+            </tr> 
+        </tbody>
+        
+    </table>
+
+
+
+
+</div>
+
+{% endblock %}

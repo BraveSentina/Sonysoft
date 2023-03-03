@@ -1,0 +1,11 @@
+.main-topic{
+    text-align: center;
+    background: linear-gradient(to right,rgb(26, 141, 173),rgb(53, 184, 108));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.sub-topic{
+    text-align: center;
+    color: grey;
+}

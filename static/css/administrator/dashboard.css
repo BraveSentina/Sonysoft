@@ -1,0 +1,99 @@
+.content{
+    padding: 20px;
+    background: rgb(217, 246, 255);
+}
+
+.main-topic{
+    text-align: center;
+    background: linear-gradient(to right,rgb(26, 141, 173),rgb(53, 184, 108));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.contain{
+    display: flex;
+}
+
+.main{
+    display: flex;
+}
+
+.date-container{
+    /* background: grey; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    width: 100%;
+    color: grey;
+    background: linear-gradient(to right,rgb(152, 245, 255),rgb(53, 172, 182));
+    transition: .3s;
+}
+
+.date-container:hover{
+    transform: scale(0.9);
+}
+
+.date-container .date{
+    /* background: rgb(21, 163, 184); */
+    color: white;
+}
+
+.block{
+    background: linear-gradient(to right,rgb(47, 165, 198),rgb(62, 214, 179));
+    width: 300px;
+    height: 203px;
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.options{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 200px;
+}
+
+.options .options-items{
+    background: rgb(0, 193, 177);
+    width: 150px;
+    transition: .3s;
+    /* text-align: right; */
+    padding: 13px;
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+
+}
+
+.options .options-items:hover{
+    width: 200px;
+    background: rgb(0, 174, 159);
+}
+
+.images-container{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.images-container img{
+    width: 200px;
+    height: 200px;
+    transition: 2s;
+}
+
+.images-container img:hover{
+    transform: scale(0.9);
+
+}
+
+@media (max-width:500px){
+    .main{
+        flex-direction: column;
+    }
+}

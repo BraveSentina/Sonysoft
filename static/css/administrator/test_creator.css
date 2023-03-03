@@ -1,0 +1,101 @@
+.content{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-topic{
+    /* color: rgb(0, 176, 240); */
+    text-align: center;
+    background: linear-gradient(to right,rgb(26, 141, 173),rgb(53, 184, 108));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+.note{
+    text-align: center;
+    font-size: 10px;
+    color: grey;
+}
+
+.box{
+    border: none;
+    align-self: center;
+    width: 500px;
+}
+
+.create-btn{
+    background: linear-gradient(to right,rgb(31, 152, 160),rgb(53, 211, 179));
+    border-radius: 2px;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    transition: .3s;
+}
+
+.create-btn:hover{
+    opacity: .7;
+}
+
+.tests-container{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(5,1fr);
+}
+
+.test-container{
+    width: 200px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 20px;
+    transition: .3s;
+}
+
+.tests-container .test-container:hover{
+    box-shadow: 0 0 5px 3px rgb(185, 185, 185);
+    /* transform: scale(1.1); */
+}
+
+.register-allowed{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.register-allowed .test-container{
+    border: 1px solid rgb(119, 199, 200);
+}
+
+.delete-link{
+    color: red;   
+    padding: 0 5px;
+    transition: .3s;
+}
+
+.delete-link:hover{
+    color: red;
+    box-shadow: 0 0 4px rgb(130, 130, 130);
+}
+
+.edit-link{
+    padding: 0 5px;
+    transition: .3s;
+}
+
+.edit-link:hover{
+    box-shadow: 0 0 4px rgb(130, 130, 130);
+}
+
+.optional-features{
+    display: flex;
+    gap: 50px;
+}
+
+.file-icon{
+    font-size: 50px;
+    color: rgb(14, 110, 148);
+}

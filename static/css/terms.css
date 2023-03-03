@@ -1,0 +1,12 @@
+.main-topic{
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.text{
+    padding: 20px;
+}
+
+.text:last-child{
+    color: rgb(13, 141, 152);
+}

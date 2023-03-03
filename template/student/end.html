@@ -1,0 +1,13 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/student/end.css' %}">
+{% endblock %}
+{% block block_content %}
+
+<div class="content">
+    <h5 class="sub-topic">Good job candidate, you have successfully submitted the assessment.</h5>
+    <h5 class="sub-topic">See you soon, bye</h5>
+</div>
+
+{% endblock %}

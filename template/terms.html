@@ -1,0 +1,30 @@
+{% extends 'sonysoft_base.html' %}
+{% load static %}
+{% block title %}Terms{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/terms.css' %}">
+{% endblock %}
+{% block terms_active %}active{% endblock %}
+{% block block_content %}
+<div class="content">
+    <h2 class="main-topic">Terms and conditions</h2>
+    <p class="text">
+        By using our application you agree to our terms and conditions.
+    </p>
+    <ul>
+        <li>
+            You can use our project for learning and non profitable business, but do mention our attribution to show us your support.
+        </li>
+        <li>
+            This application should not be used for commmercial purposes without the consent of this application's rightfull owner.
+        </li>
+        <li>
+            We wont be held responsible for any misuse of our application.
+        </li>
+    </ul>
+    <p class="text">
+        Happy learning!!
+    </p>
+
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}results{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/administrator/results.css' %}">
+{% endblock %}
+{% block dashboard_active %}active{% endblock %}
+{% block block_content %}
+    <div class="content">
+        <h1 class="main-topic">Results</h1>
+
+        <h3 class="sub-topic">Test: {{ test.test_name }}</h3>
+        <table class="table">
+            <thead class="table-head">
+                <tr>
+                    <th>Student</th>
+                    <th>Email</th>
+                    <th>Marks Obtained</th>
+                    <th>Total Marks</th>
+                    <th>Outcome</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.user }}</td>
+                    <td>{{ result.user.user.email }}</td>
+                    <td>{{ result.score }}</td>
+                    <td>{{ marks }}</td>
+                    {% if result.outcome == True %}
+                        <td style="color: green;">Pass</td>
+                    {% else %}
+                        <td style="color: red;">Fail</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,149 @@
+.content{
+    /* padding-top: 10px; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.toggle-questions-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 91vh;
+    overflow: scroll;
+}
+
+.toggle-questions-container a{
+    /* border-bottom: 1px solid rgb(222, 222, 222); */
+    width: 50px;
+    padding: 9px 0;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    transition: .3s;
+    background: lightblue;
+}
+
+.toggle-questions-container a:hover{
+    background: rgb(30, 157, 159);
+    color: white;
+    box-shadow: 0 0 0 2px rgb(161, 197, 255);
+}
+
+
+.full-screen-btn{
+    background:rgb(0, 176, 240);
+    border-radius: 2px;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    transition: .3s;
+}
+
+.full-screen-btn:hover{
+    background:rgb(4, 160, 217);
+}
+
+.video-container{
+    width: 200px;
+    height: 150px;
+    position: absolute;
+    right: 30px;
+    top: 0;
+    z-index: 10;
+    background: rgb(40, 189, 40);
+}
+
+#video{
+    display: none;
+}
+
+#inform-msg{
+    text-shadow: 0 0 10px 10px white;
+}
+
+.duration{
+    align-self: center;
+    position: relative;
+    top: 10px;
+}
+
+.time-left{
+    color: red;
+}
+
+.questions-container{
+    margin-left: 70px;
+    overflow-y: scroll;
+    height: 680px;
+    margin-top: 10px;
+    scroll-behavior: smooth;
+}
+
+.questions-container .question-container .card{
+    height: 600px;
+    /* background: red; */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.questions-container .question-container .card p{
+    background: rgb(54, 174, 170);
+    color: white;
+    /* border: 1px solid rgb(208, 208, 208); */
+    padding: 10px;
+}
+
+.options-container{
+    position: absolute;
+    bottom: 0;
+    /* left: 10px; */
+}
+
+.options-container .option-container{
+    border: 1px solid rgb(201, 201, 201);
+    min-width:192vh;
+    padding: 7px;
+}
+
+.images-container{
+    height: 300px;
+    width: 500px;
+    padding: 10px;
+    display: flex;
+    gap: 5px;
+    overflow: scroll;
+}
+
+.images-container img{
+    
+}
+
+.submit-btn{
+    background:rgb(0, 176, 240);
+    border-radius: 2px;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    transition: .3s;
+    position: relative;
+    top: 10px;
+}
+
+.submit-btn:hover{
+    background:rgb(4, 160, 217);
+}
+
+.overlay{
+    width: 100%;
+    height: 100%;
+    background: rgb(18, 62, 60);
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

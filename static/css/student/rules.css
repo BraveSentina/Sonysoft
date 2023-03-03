@@ -1,0 +1,38 @@
+.small-card{
+    border: 1px solid rgb(185, 185, 185);
+    border-radius: 2px;
+    margin: 10px 10px;
+    /* background: red; */
+}
+
+.small-card:hover{
+    box-shadow: 0 0 3px 2px rgb(190, 186, 186);
+}
+
+.main-topic{
+    text-align: center;
+    color: rgb(0, 176, 240);}
+
+.sub-topic{
+    text-align: center;
+}
+
+.assessment-link-container{
+    display: flex;
+    justify-content: center;
+}
+
+.assessment-link{
+    background:rgb(0, 176, 240);
+    border-radius: 2px;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    transition: .3s;
+    text-decoration: none;
+}
+
+.assessment-link:hover{
+    background:rgb(4, 160, 217);
+    color: white;
+}

@@ -1,0 +1,65 @@
+.content{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+
+.card{
+    /* background: blue; */
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    box-shadow: 0 0 5px 2px rgb(195, 195, 195);
+}
+
+.card:hover{
+    box-shadow: 0 0 5px 4px rgb(195, 195, 195);
+}
+
+.company-name{
+    color: rgb(0, 176, 240);
+    font-size: 40px;
+    text-align: center;
+}
+
+.user-icon{
+    font-size: 90px;
+    color: rgb(0, 176, 240);
+}
+
+.signin-btn{
+    background:rgb(0, 176, 240);
+    border-radius: 2px;
+    color: white;
+    border: none;
+    padding: 3px 20px;
+    transition: .3s;
+}
+
+.signin-btn:hover{
+    background:rgb(4, 160, 217);
+}
+
+#username{
+    width: 220px;
+    text-align: center;
+    color: grey;
+}
+
+#password{
+    text-align: center;
+    width: 220px;
+    color: grey;
+
+}
+
+#error{
+    color: red;
+    font-weight: bold;
+    /* display: none; */
+}
